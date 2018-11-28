@@ -1,0 +1,28 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="SpringBoot Thymeleaf login demo page">
+    <meta name="author" content="TekinTian">
+    <link rel="icon" href="favicon.ico" th:href="@{/favicon.ico}">
+    <title>SpringBoot Mybatis Multi Table query demo page for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+<div id="container">
+    <h1>SpringBoot Mybatis Multi Table query</h1>
+    <ul>
+        <li><a href="/user/lists" class="btn btn-large btn-info">DemoUserLists with car and address info</a></li>
+        <li><a href="/user/1/address" class="btn btn-large btn-info">UserInfo with address</a></li>
+        <li><a href="/user/1/cars" class="btn btn-large btn-info">UserInfo with cars</a></li>
+    </ul>
+
+    <hr>
+    <a href="/druid" target="_blank" class="btn btn-large btn-success">Druid监控查看</a>
+
+
+</body>
+</html>

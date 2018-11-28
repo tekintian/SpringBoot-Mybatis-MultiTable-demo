@@ -1,0 +1,60 @@
+package cn.tekin.api.config;
+
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+@Configuration
+public class DruidCon {
+
+    /**
+     * @Bean 加入 springboot容器中的，
+     * @ConfigurationProperties(prefix = "spring.datasource") 扫描spring.datasource前缀的配置
+     * @return
+     */
+    @Bean
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource druid(){
+        return new DruidDataSource();
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Bean
+    public ServletRegistrationBean statViewServlet() {
+        ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+        Map<String, String> initParameter = new HashMap<>();
+        initParameter.put("loginUsername", "tekin");
+        initParameter.put("loginPassword", "13888011868");
+        initParameter.put("allow", "");
+        initParameter.put("deny", "192.168.1.1");
+        bean.setInitParameters(initParameter);
+        return bean;
+    }
+
+    /**
+     * 配置一个web监控的 Filter
+     *
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean webStatFilter() {
+        FilterRegistrationBean bean = new FilterRegistrationBean(new WebStatFilter());
+        bean.addUrlPatterns("/*");
+        bean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
+
+        return bean;
+    }
+}
